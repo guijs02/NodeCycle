@@ -1,0 +1,49 @@
+
+
+services:
+   mysql:
+    container_name: mysql
+    command: --innodb-use-native-aio=0
+    image: mysql:5.7
+    networks:
+      - nodenet
+    volumes:
+      - volumedb:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+    tty: true
+
+   node:
+    build: 
+       context: .
+       dockerfile: dockerfile.node
+    container_name: node
+    image: guijs02/node-cycle
+    networks:
+      - nodenet
+    volumes:
+      - ./src:/var/www/node
+
+   nginx:
+    build: 
+       context: .
+       dockerfile: dockerfile.ng
+    container_name: nginx
+    image: guijs02/nginx-cycle
+    ports:
+      - 8080:80
+    networks:
+      - nodenet
+
+networks:
+  nodenet:
+    driver: bridge
+
+volumes:
+  volumedb:
+  volumenode:
+
+
+
+
