@@ -9,5 +9,5 @@ RUN apk update --no-cache \
     && apk del wget
 
 COPY ./src . 
-EXPOSE 3000
+EXPOSE 4000
 CMD [ "node", "index.js" ]

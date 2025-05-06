@@ -21,7 +21,7 @@ services:
        context: .
        dockerfile: dockerfile.node
     container_name: node
-    entrypoint: dockerize -wait tcp://mysql:3306 -timeout 80s docker-entrypoint.sh
+    entrypoint: dockerize -wait tcp://mysql:3306 -timeout 80s node index.js
     image: guijs02/node-cycle
     networks:
       - nodenet
@@ -31,6 +31,8 @@ services:
       - ./src:/var/www/node
     depends_on:
       - mysql
+    restart: unless-stopped
+      
       
    nginx:
     build: 

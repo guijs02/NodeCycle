@@ -9,6 +9,8 @@ const config = {
     database: 'nodedb',
 }
 
+app.use(express.json())
+
 const connection = mysql.createConnection(config)
 
 app.get('/', (req,res) => {
@@ -24,6 +26,19 @@ app.get('/', (req,res) => {
          res.send(`<h1>Full Cycle Rocks!!</h1><p>Nomes cadastrados no banco de dados</p><p>${names}</p>`)
     })
 
+})
+
+app.post('/people', (req, res) => {
+    const person = req.body
+    const peopleInsert = `INSERT INTO people(name) VALUES ('${person.name}');`
+    connection.query(peopleInsert, (err, results) => {
+        if (err) {
+            console.error('Erro ao executar a consulta de inserção: ' + err.stack);
+            res.status(500).send('Erro ao acessar o banco de dados');
+            return;
+        }
+        res.send('Pessoa cadastrada com sucesso!')
+    })
 })
 
 app.listen(port, () => {
