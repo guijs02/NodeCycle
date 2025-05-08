@@ -13,7 +13,6 @@ services:
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=root
     tty: true
 
    node:
