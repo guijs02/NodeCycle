@@ -28,6 +28,7 @@ services:
       - "4000:4000"
     volumes:
       - ./src:/var/www/node
+      - /var/www/node/node_modules
     depends_on:
       - mysql
     restart: unless-stopped
