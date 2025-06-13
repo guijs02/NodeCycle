@@ -31,7 +31,6 @@ services:
       - /var/www/node/node_modules
     depends_on:
       - mysql
-    restart: unless-stopped
       
       
    nginx:

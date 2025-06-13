@@ -13,6 +13,21 @@ app.use(express.json())
 
 const connection = mysql.createConnection(config)
 
+const createTable = `
+CREATE TABLE IF NOT EXISTS people (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+`;
+
+connection.query(createTable, (err) => {
+    if (err) {
+        console.error('Erro ao criar a tabela:', err.stack);
+        process.exit(1);
+    }
+    console.log('Tabela "people" verificada/criada com sucesso.');
+});
+
 app.get('/', (req,res) => {
     const peopleSelect = `SELECT * FROM people;`
     connection.query(peopleSelect, (err, results) => {
